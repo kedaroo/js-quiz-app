@@ -10,7 +10,7 @@ import InfoIcon from "../assets/icons/info-solid.svg";
 
 SyntaxHighlighter.registerLanguage("javascript", javascript);
 
-export default function Question({ question, index, setShowNext }) {
+export default function Question({ question, index, setShowNext, setScore }) {
   const [showModal, setShowModal] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
@@ -45,7 +45,9 @@ export default function Question({ question, index, setShowNext }) {
     setShowModal(!showModal);
   };
 
-  const handleOptionClick = () => {
+  const handleOptionClick = (isCorrect) => {
+    if (isCorrect) setScore((score) => score + 1);
+
     setIsRevealed(true);
     setShowInfo(true);
     setShowNext(true);
@@ -92,4 +94,5 @@ Question.propTypes = {
   question: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
   setShowNext: PropTypes.func.isRequired,
+  setScore: PropTypes.func.isRequired,
 };

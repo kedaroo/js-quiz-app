@@ -10,7 +10,10 @@ export default function Option({ option, handleClick, isRevealed }) {
   }
 
   return (
-    <button className={`option ${bgColor}`} onClick={handleClick}>
+    <button
+      className={`option ${bgColor}`}
+      onClick={() => handleClick(option.correct)}
+    >
       <ReactMarkdown>{option.text}</ReactMarkdown>
     </button>
   );
