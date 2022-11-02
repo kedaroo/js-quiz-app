@@ -10,7 +10,7 @@ import InfoIcon from "../assets/icons/info-solid.svg";
 
 SyntaxHighlighter.registerLanguage("javascript", javascript);
 
-export default function Question({ question, index }) {
+export default function Question({ question, index, setShowNext }) {
   const [showModal, setShowModal] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
@@ -18,6 +18,7 @@ export default function Question({ question, index }) {
   useEffect(() => {
     setIsRevealed(false);
     setShowInfo(false);
+    setShowNext(false);
   }, [question]);
 
   const MarkdownComponents = {
@@ -47,6 +48,7 @@ export default function Question({ question, index }) {
   const handleOptionClick = () => {
     setIsRevealed(true);
     setShowInfo(true);
+    setShowNext(true);
   };
 
   return (
@@ -89,4 +91,5 @@ export default function Question({ question, index }) {
 Question.propTypes = {
   question: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
+  setShowNext: PropTypes.func.isRequired,
 };
