@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ReactMarkdown from "react-markdown";
 import { PrismLight as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -12,7 +12,13 @@ SyntaxHighlighter.registerLanguage("javascript", javascript);
 
 export default function Question({ question, index }) {
   const [showModal, setShowModal] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
   const [isRevealed, setIsRevealed] = useState(false);
+
+  useEffect(() => {
+    setIsRevealed(false);
+    setShowInfo(false);
+  }, [question]);
 
   const MarkdownComponents = {
     code({ className, ...props }) {
@@ -40,19 +46,23 @@ export default function Question({ question, index }) {
 
   const handleOptionClick = () => {
     setIsRevealed(true);
+    setShowInfo(true);
   };
 
   return (
     <div className="relative flex flex-1 flex-col items-center">
-      <button
-        onClick={handleModal}
-        className="absolute right-1 top-1 md:right-5"
-      >
-        <img
-          src={InfoIcon}
-          className=" h-8 w-8 rounded-full bg-sky-200 p-2 ring-2 transition-all hover:-translate-y-1 hover:scale-105 hover:bg-sky-300 hover:shadow-lg"
-        />
-      </button>
+      {showInfo && (
+        <button
+          onClick={handleModal}
+          className="absolute right-1 top-1 md:right-5"
+        >
+          <img
+            src={InfoIcon}
+            className=" h-8 w-8 rounded-full bg-sky-200 p-2 ring-2 transition-all hover:-translate-y-1 hover:scale-105 hover:bg-sky-300 hover:shadow-lg"
+          />
+        </button>
+      )}
+
       <h2 className="mb-4 border-b-2 pb-3 text-center text-xl md:w-4/5 md:text-2xl ">
         {`${index + 1}. ${question.title}`}
       </h2>
