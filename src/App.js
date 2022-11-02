@@ -9,9 +9,15 @@ function App() {
   const [questionIndex, setQuestionIndex] = useState(0);
 
   useEffect(() => {
+    const selectRandomElements = (count, array) => {
+      const shuffledArray = array.sort(() => 0.5 - Math.random());
+      console.log(shuffledArray.slice(0, count));
+      return shuffledArray.slice(0, count);
+    };
+
     fetch(data)
       .then((r) => r.json())
-      .then((questions) => setQuestions(questions));
+      .then((questions) => setQuestions(selectRandomElements(15, questions)));
   }, []);
 
   const handleNext = () => {
@@ -33,7 +39,9 @@ function App() {
         <button onClick={handlePrevious}>
           <img src={LeftArrowIcon} className="nav-btn" />
         </button>
-        {questions.length && <Question question={questions[questionIndex]} />}
+        {questions.length && (
+          <Question index={questionIndex} question={questions[questionIndex]} />
+        )}
         <button onClick={handleNext}>
           <img src={RightArrowIcon} className="nav-btn" />
         </button>

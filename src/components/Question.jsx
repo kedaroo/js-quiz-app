@@ -10,7 +10,7 @@ import InfoIcon from "../assets/icons/info-solid.svg";
 
 SyntaxHighlighter.registerLanguage("javascript", javascript);
 
-export default function Question({ question }) {
+export default function Question({ question, index }) {
   const [showModal, setShowModal] = useState(false);
   const MarkdownComponents = {
     code({ className, ...props }) {
@@ -48,7 +48,7 @@ export default function Question({ question }) {
         />
       </button>
       <h2 className="mb-4 border-b-2 pb-3 text-center text-xl md:w-4/5 md:text-2xl ">
-        {question.title}
+        {`${index + 1}. ${question.title}`}
       </h2>
       <ReactMarkdown components={MarkdownComponents}>
         {question.snippet}
@@ -67,4 +67,5 @@ export default function Question({ question }) {
 
 Question.propTypes = {
   question: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
 };
