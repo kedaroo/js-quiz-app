@@ -1,19 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import ReactMarkdown from "react-markdown";
 
-export default function Option({ option }) {
-  const [isCorrect, setIsCorrect] = useState("");
+export default function Option({ option, handleClick, isRevealed }) {
+  let bgColor = "";
 
-  const handleClick = () => {
-    option.correct ? setIsCorrect("bg-green-400") : setIsCorrect("bg-red-400");
-  };
+  if (isRevealed) {
+    bgColor = option.correct ? "bg-green-400" : "bg-red-400";
+  }
 
   return (
-    <button
-      className={`option ${isCorrect}`}
-      onClick={handleClick}
-    >
+    <button className={`option ${bgColor}`} onClick={handleClick}>
       <ReactMarkdown>{option.text}</ReactMarkdown>
     </button>
   );
@@ -21,4 +18,6 @@ export default function Option({ option }) {
 
 Option.propTypes = {
   option: PropTypes.object.isRequired,
+  isRevealed: PropTypes.bool.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
