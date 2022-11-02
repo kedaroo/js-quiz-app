@@ -6,6 +6,7 @@ import RightArrowIcon from "./assets/icons/arrow-right-solid.svg";
 function App() {
   const [questions, setQuestions] = useState([]);
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [showNext, setShowNext] = useState(false);
 
   useEffect(() => {
     const selectRandomElements = (count, array) => {
@@ -28,17 +29,23 @@ function App() {
       <header>JavaScript Quiz Playground</header>
       <div className="flex h-full justify-between">
         {questions.length && (
-          <Question index={questionIndex} question={questions[questionIndex]} />
+          <Question
+            index={questionIndex}
+            setShowNext={setShowNext}
+            question={questions[questionIndex]}
+          />
         )}
         <button onClick={handleNext}>
           <img src={RightArrowIcon} className="nav-btn" />
         </button>
       </div>
-      <div className="mt-3 flex justify-between gap-4">
-        <button className="mb-4 flex-1" onClick={handleNext}>
-          <img src={RightArrowIcon} className="mobile-nav-btn" />
-        </button>
-      </div>
+      {showNext && (
+        <div className="mt-3 flex justify-between gap-4">
+          <button className="mb-4 flex-1" onClick={handleNext}>
+            <img src={RightArrowIcon} className="mobile-nav-btn" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
