@@ -12,6 +12,8 @@ SyntaxHighlighter.registerLanguage("javascript", javascript);
 
 export default function Question({ question, index }) {
   const [showModal, setShowModal] = useState(false);
+  const [isRevealed, setIsRevealed] = useState(false);
+
   const MarkdownComponents = {
     code({ className, ...props }) {
       const match = /language-(\w+)/.exec(className || "");
@@ -36,6 +38,10 @@ export default function Question({ question, index }) {
     setShowModal(!showModal);
   };
 
+  const handleOptionClick = () => {
+    setIsRevealed(true);
+  };
+
   return (
     <div className="relative flex flex-1 flex-col items-center">
       <button
@@ -55,7 +61,12 @@ export default function Question({ question, index }) {
       </ReactMarkdown>
       <div className="mt-auto grid grid-cols-1 md:grid-cols-2">
         {question.options.map((option) => (
-          <Option key={Math.random()} option={option} />
+          <Option
+            key={Math.random()}
+            handleClick={handleOptionClick}
+            isRevealed={isRevealed}
+            option={option}
+          />
         ))}
       </div>
       {showModal && (
